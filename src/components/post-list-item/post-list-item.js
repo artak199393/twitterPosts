@@ -1,29 +1,8 @@
 import React, { Component } from 'react';
 import './post-list-item.css';
 
-export default class PostlistItem extends Component{
-    constructor(props){
-        super(props);
-        this.state ={
-            important: false,
-            like:false
-        };
-        this.onImportant = this.onImportant.bind(this);
-        this.onLike = this.onLike.bind(this)
-    }
-    onImportant(){
-        this.setState(({important}) =>({
-            important: !important
-        }))
-    }
-    onLike(){
-        this.setState(({like}) =>({
-            like: !like
-        }))
-    }
-    render(){
-        const {label} = this.props;
-        const {important, like} =this.state;
+const PostlistItem = ({label, onDelete, onToogleImportant, onToogleLiked, important, like}) =>{
+        
         let classNames = "app-list-item d-flex justify-content-between";
         
         if(important){
@@ -35,14 +14,14 @@ export default class PostlistItem extends Component{
         }
         return(
             <div className={classNames}>
-                <span className="app-list-item-label" onClick = {this.onLike}>
+                <span className="app-list-item-label" onClick = {onToogleLiked}>
                     {label}
                 </span>
                 <div className="d-flex justify-content-center align-items-center">
-                    <button type="button" className="btn-star btn-sm" onClick={this.onImportant}>
+                    <button type="button" className="btn-star btn-sm" onClick={onToogleImportant}>
                         <i className="fa fa-star"/>
                     </button>
-                    <button type="button" className="btn-trash btn-sm">
+                    <button type="button" className="btn-trash btn-sm" onClick={onDelete}>
                         <i className="fa fa-trash-o"/>
                     </button>
                     <i className="fa fa-heart"/>
@@ -50,4 +29,4 @@ export default class PostlistItem extends Component{
             </div>
         )
     }
-}
+export default PostlistItem;
